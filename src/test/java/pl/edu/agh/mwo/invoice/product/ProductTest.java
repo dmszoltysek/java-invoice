@@ -55,3 +55,4 @@ public class ProductTest {
         new TaxFreeProduct("Mandarynki", new BigDecimal("-1.00"));
     }
 }
+
