@@ -136,6 +136,34 @@ public class InvoiceTest {
     public void testInvoice2HasNumberInvoice1Plus1() {
         int number1 = new Invoice().getNumber();
         int number2 = new Invoice().getNumber();
-        Assert.assertTrue(number2 - number1 == 1);
+        Assert.assertEquals(number2 - number1, 1);
     }
+
+    @Test
+    public void testNumberOfPositionsEqualsNumberOfProductsOnList() {
+        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
+        invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
+        int N = invoice.getNumberOfPositions();
+        Assert.assertEquals(N, 3);
+    }
+
+    @Test
+    public void testPrintPositions() {
+        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
+        Assert.assertEquals(invoice.getPositions(), "Chedar Quantity: 3 price/pc: 10\n" +
+                "Chleb Quantity: 2 price/pc: 5\n");
+    }
+
+    @Test
+    public void testPrintInvoice() {
+        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
+        Assert.assertEquals(invoice.printInvoice(), "Invoice number: 1\n" +
+                "Chedar Quantity: 3 price/pc: 10\n" +
+                "Chleb Quantity: 2 price/pc: 5\n" +
+                "Number of positions: 2");
+    }
+
 }

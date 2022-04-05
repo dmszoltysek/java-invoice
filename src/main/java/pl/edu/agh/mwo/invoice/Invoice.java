@@ -49,4 +49,24 @@ public class Invoice {
     public int getNumber(){
         return number;
     }
+
+
+    public int getNumberOfPositions() {
+        return products.size();
+    }
+
+    public String getPositions() {
+        String positions = "";
+        for (Product product : products.keySet()) {
+            positions = positions + product.getName() + " Quantity: " + products.get(product) + " price/pc: " + product.getPrice() + "\n";
+        }
+        return positions;
+    }
+
+
+    public String printInvoice() {
+        String invoice = "Invoice number: " + getNumber() + "\n" + getPositions() + "Number of positions: " + getNumberOfPositions();
+        return invoice;
+    }
+
 }
