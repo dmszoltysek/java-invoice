@@ -136,7 +136,7 @@ public class InvoiceTest {
     public void testInvoice2HasNumberInvoice1Plus1() {
         int number1 = new Invoice().getNumber();
         int number2 = new Invoice().getNumber();
-        Assert.assertEquals(1, number2 - number1);
+        Assert.assertTrue(number2 - number1 == 1);
     }
 
     @Test
