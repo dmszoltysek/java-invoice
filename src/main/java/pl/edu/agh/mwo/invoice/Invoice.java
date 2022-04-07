@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
@@ -26,7 +25,7 @@ public class Invoice {
             products.put(product, quantity);
             return;
         }
-            products.put(product, quantity);
+        products.put(product, quantity);
     }
 
     public BigDecimal getNetTotal() {
@@ -51,7 +50,7 @@ public class Invoice {
         return totalGross;
     }
 
-    public int getNumber(){
+    public int getNumber() {
         return number;
     }
 
@@ -63,14 +62,17 @@ public class Invoice {
     public String getPositions() {
         String positions = "";
         for (Product product : products.keySet()) {
-            positions = positions + product.getName() + " Quantity: " + products.get(product) + " price/pc: " + product.getPrice() + "\n";
+            positions = positions + product.getName() + " Quantity: "
+                    + products.get(product) + " price/pc: "
+                    + product.getPrice() + "\n";
         }
         return positions;
     }
 
 
     public String printInvoice() {
-        String invoice = "Invoice number: " + getNumber() + "\n" + getPositions() + "Number of positions: " + getNumberOfPositions();
+        String invoice = "Invoice number: " + getNumber() + "\n"
+                + getPositions() + "Number of positions: " + getNumberOfPositions();
         return invoice;
     }
 
