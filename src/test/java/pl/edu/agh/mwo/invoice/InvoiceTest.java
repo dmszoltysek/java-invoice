@@ -152,8 +152,7 @@ public class InvoiceTest {
     public void testPrintPositionsReturnsStringWithProductQuantityNetPrice() {
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
-        Assert.assertEquals(invoice.getPositions(), "Chedar Quantity: 3 price/pc: 10\n" +
-                "Chleb Quantity: 2 price/pc: 5\n");
+        Assert.assertEquals(invoice.getPositions().contains("Chedar Quantity: 3 price/pc: 10\n") & invoice.getPositions().contains("Chleb Quantity: 2 price/pc: 5\n"), true);
     }
 
     @Test
