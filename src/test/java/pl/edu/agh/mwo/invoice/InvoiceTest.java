@@ -149,7 +149,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testPrintPositionsCorrectlyAdded() {
+    public void testPrintPositionsReturnsStringWithProductQuantityNetPrice() {
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
         Assert.assertEquals(invoice.getPositions(), "Chedar Quantity: 3 price/pc: 10\n" +
@@ -157,12 +157,11 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testPrintInvoiceWithCorrectString() {
+    public void testPrintInvoiceReturnsInvoiceNumberProductsNumberOfPositions() {
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
-        Assert.assertEquals(invoice.printInvoice(), "Invoice number: 1\n" +
-                "Chedar Quantity: 3 price/pc: 10\n" +
-                "Chleb Quantity: 2 price/pc: 5\n" +
+        Assert.assertEquals(invoice.printInvoice(), "Invoice number: " + invoice.getNumber() + "\n" +
+                invoice.getPositions() +
                 "Number of positions: 2");
     }
 
@@ -182,10 +181,9 @@ public class InvoiceTest {
         invoice.addProduct(chleb, 2);
         invoice.addProduct(chleb, 3);
         invoice.addProduct(chleb);
-        Assert.assertEquals(invoice.printInvoice(), "Invoice number: 1\n" +
+        Assert.assertEquals(invoice.printInvoice(), "Invoice number: " + invoice.getNumber() + "\n" +
                 "Chleb Quantity: 6 price/pc: 5\n" +
                 "Number of positions: 1");
     }
-
 
 }
