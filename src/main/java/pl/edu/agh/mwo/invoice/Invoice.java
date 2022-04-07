@@ -21,7 +21,12 @@ public class Invoice {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
         }
-        products.put(product, quantity);
+        if (products.containsKey(product)) {
+            quantity += products.get(product);
+            products.put(product, quantity);
+            return;
+        }
+            products.put(product, quantity);
     }
 
     public BigDecimal getNetTotal() {
@@ -68,5 +73,10 @@ public class Invoice {
         String invoice = "Invoice number: " + getNumber() + "\n" + getPositions() + "Number of positions: " + getNumberOfPositions();
         return invoice;
     }
+
+    public int getQuantity(Product product) {
+        return products.get(product);
+    }
+
 
 }

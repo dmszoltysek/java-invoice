@@ -149,7 +149,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testPrintPositions() {
+    public void testPrintPositionsCorrectlyAdded() {
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
         Assert.assertEquals(invoice.getPositions(), "Chedar Quantity: 3 price/pc: 10\n" +
@@ -157,7 +157,7 @@ public class InvoiceTest {
     }
 
     @Test
-    public void testPrintInvoice() {
+    public void testPrintInvoiceWithCorrectString() {
         invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
         Assert.assertEquals(invoice.printInvoice(), "Invoice number: 1\n" +
@@ -165,5 +165,27 @@ public class InvoiceTest {
                 "Chleb Quantity: 2 price/pc: 5\n" +
                 "Number of positions: 2");
     }
+
+    @Test
+    public void testAddExistingPositionIsChangingItsQuantity() {
+        Product chleb = new TaxFreeProduct("Chleb", new BigDecimal("5"));
+        invoice.addProduct(chleb, 2);
+        invoice.addProduct(chleb, 3);
+        invoice.addProduct(chleb, 2);
+        invoice.addProduct(chleb);
+        Assert.assertEquals(invoice.getQuantity(chleb), 8);
+    }
+
+    @Test
+    public void testPrintInvoiceWithProductAddedTwice() {
+        Product chleb = new TaxFreeProduct("Chleb", new BigDecimal("5"));
+        invoice.addProduct(chleb, 2);
+        invoice.addProduct(chleb, 3);
+        invoice.addProduct(chleb);
+        Assert.assertEquals(invoice.printInvoice(), "Invoice number: 1\n" +
+                "Chleb Quantity: 6 price/pc: 5\n" +
+                "Number of positions: 1");
+    }
+
 
 }
